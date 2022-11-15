@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Enhanced Direct Speech-to-Speech Translation Using Self-supervised Pre-training and Data Augmentation</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="jquery-3.5.js"></script>
+    <script src="wavesurfer.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div id="text1">Enhanced Direct Speech-to-Speech Translation Using Self-supervised Pre-training and Data
+            Augmentation</div>
+        <div id="intro">
+            <br>
+            <p>
+                Sravya Popuri<sup>&#9734;</sup>, Peng-Jen Chen<sup>&#9734;</sup>, Changhan
+                Wang, Juan Pino, Yossi Adi,
+                Jiatao Gu, Wei-Ning Hsu<sup>&dagger;</sup>, Ann Lee<sup>&dagger;</sup> <br>
+                <font size="-1">(&#9734; = Equal contribution and &dagger; = Equal supervision)</font>
+            </p>
+            </p>
+            <p>
+                [<a href="https://arxiv.org/abs/2204.02967">paper</a>]
+            </p>
+        </div>
+    </div>
+    <div class="content-container">
+        <p>
+            We explore self-supervised pre-training with unlabeled speech data and data augmentation to improve direct
+            speech-to-speech model training. We take advantage of a recently proposed speech-to-unit translation (S2UT)
+            framework that encodes
+            target
+            speech into discrete representations, and study both speech encoder and discrete unit decoder pre-training
+            as well as
+            efficient partial finetuning methods. We conduct experiments under various data setups and show that
+            self-supervised
+            pre-training consistently improves model performance compared with multitask learning and is complementary
+            to data
+            augmentation techniques that apply ASR and MT models to create weakly supervised training data.
+
+        </p>
+        <ul>
+            <li><a style="color:rgb(90, 4, 83)" href="#ES-EN Comparison with Baselines">Spanish To English</a></li>
+            <ul>
+                <li><a style="color:rgb(90, 4, 83)" href="#ES-EN Comparison with Baselines">Comparison with
+                        Baselines</a></li>
+                <li><a style="color:rgb(90, 4, 83)" href="#ES-EN Different Data Setups">Different Data Setups</a></li>
+            </ul>
+            <li><a style="color:rgb(90, 4, 83)" href="#EN-ES Comparison with Baselines">English To Spanish</a></li>
+            <ul>
+                <li><a style="color:rgb(90, 4, 83)" href="#EN-ES Comparison with Baselines">Comparison with
+                        Baselines</a></li>
+                <li><a style="color:rgb(90, 4, 83)" href="#EN-ES Different Data Setups">Different Data Setups</a></li>
+            </ul>
+
+        </ul>
+    </div>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"><table border="0" class="inlineTable">
+  <tr>
+    <th></th>
+    <th colspan="2">Ground truth</th>
+    <th colspan="3">Predictions</th>
+  </tr>
+  <tr>
+    <th>Source (Spanish)</th>
+    <th>Target (English)</th>
+    <th>Vanilla TTS</th>
+    <th>Holistic Cascade (Global transfer + local transfer)</th>
+    <th>Ablation (Global transfer only)</th>
+    <th>Ablation (Local transfer only)</th>
+  </tr>
+  <div id="heroes_s3_6_0253_s2t_nnnn__waveform"></div>
+  <button id="heroes_s3_6_0253_s2t_nnnn__button" class="play-button-demo btn btn-primary" onclick="heroes_s3_6_0253_s2t_nnnn.playPause()"><i class="fa fa-play"></i> Play / <i class="fa fa-pause"></i> Pause </button>
+  <script> var heroes_s3_6_0253_s2t_nnnn = WaveSurfer.create({ container: '#heroes_s3_6_0253_s2t_nnnn__waveform', waveColor: 'violet', progressColor: 'purple' }); heroes_s3_6_0253_s2t_nnnn.load('./audio/S2T_text/heroes/N_N_N_N/heroes_s3_6_0253.wav'); </script>
+  <div id="heroes_s3_6_0253_s2t_gpdf__waveform"></div>
+  <button id="heroes_s3_6_0253_s2t_gpdf__button" class="play-button-demo btn btn-primary" onclick="heroes_s3_6_0253_s2t_gpdf.playPause()"><i class="fa fa-play"></i> Play / <i class="fa fa-pause"></i> Pause </button>
+  <script> var heroes_s3_6_0253_s2t_gpdf = WaveSurfer.create({ container: '#heroes_s3_6_0253_s2t_gpdf__waveform', waveColor: 'violet', progressColor: 'purple' }); heroes_s3_6_0253_s2t_gpdf.load('./audio/S2T_text/heroes/G_P_D_F/heroes_s3_6_0253.wav'); </script>
+  <div id="heroes_s3_6_0253_s2t_gnnn__waveform"></div>
+  <button id="heroes_s3_6_0253_s2t_gnnn__button" class="play-button-demo btn btn-primary" onclick="heroes_s3_6_0253_s2t_gnnn.playPause()"><i class="fa fa-play"></i> Play / <i class="fa fa-pause"></i> Pause </button>
+  <script> var heroes_s3_6_0253_s2t_gnnn = WaveSurfer.create({ container: '#heroes_s3_6_0253_s2t_gnnn__waveform', waveColor: 'violet', progressColor: 'purple' }); heroes_s3_6_0253_s2t_gnnn.load('./audio/S2T_text/heroes/G_N_N_N/heroes_s3_6_0253.wav'); </script>
+  <div id="heroes_s3_6_0253_s2t_npdf__waveform"></div>
+  <button id="heroes_s3_6_0253_s2t_npdf__button" class="play-button-demo btn btn-primary" onclick="heroes_s3_6_0253_s2t_npdf.playPause()"><i class="fa fa-play"></i> Play / <i class="fa fa-pause"></i> Pause </button>
+  <script> var heroes_s3_6_0253_s2t_npdf = WaveSurfer.create({ container: '#heroes_s3_6_0253_s2t_npdf__waveform', waveColor: 'violet', progressColor: 'purple' }); heroes_s3_6_0253_s2t_npdf.load('./audio/S2T_text/heroes/N_P_D_F/heroes_s3_6_0253.wav'); </script>
+  <div id="heroes_s3_16_0124_s2t_nnnn__waveform"></div>
+  <button id="heroes_s3_16_0124_s2t_nnnn__button" class="play-button-demo btn btn-primary" onclick="heroes_s3_16_0124_s2t_nnnn.playPause()"><i class="fa fa-play"></i> Play / <i class="fa fa-pause"></i> Pause </button>
+  <script> var heroes_s3_16_0124_s2t_nnnn = WaveSurfer.create({ container: '#heroes_s3_16_0124_s2t_nnnn__waveform', waveColor: 'violet', progressColor: 'purple' }); heroes_s3_16_0124_s2t_nnnn.load('./audio/S2T_text/heroes/N_N_N_N/heroes_s3_16_0124.wav'); </script>
+  <div id="heroes_s3_16_0124_s2t_gpdf__waveform"></div>
+  <button id="heroes_s3_16_0124_s2t_gpdf__button" class="play-button-demo btn btn-primary" onclick="heroes_s3_16_0124_s2t_gpdf.playPause()"><i class="fa fa-play"></i> Play / <i class="fa fa-pause"></i> Pause </button>
+  <script> var heroes_s3_16_0124_s2t_gpdf = WaveSurfer.create({ container: '#heroes_s3_16_0124_s2t_gpdf__waveform', waveColor: 'violet', progressColor: 'purple' }); heroes_s3_16_0124_s2t_gpdf.load('./audio/S2T_text/heroes/G_P_D_F/heroes_s3_16_0124.wav'); </script>
+  <div id="heroes_s3_16_0124_s2t_gnnn__waveform"></div>
+  <button id="heroes_s3_16_0124_s2t_gnnn__button" class="play-button-demo btn btn-primary" onclick="heroes_s3_16_0124_s2t_gnnn.playPause()"><i class="fa fa-play"></i> Play / <i class="fa fa-pause"></i> Pause </button>
+  <script> var heroes_s3_16_0124_s2t_gnnn = WaveSurfer.create({ container: '#heroes_s3_16_0124_s2t_gnnn__waveform', waveColor: 'violet', progressColor: 'purple' }); heroes_s3_16_0124_s2t_gnnn.load('./audio/S2T_text/heroes/G_N_N_N/heroes_s3_16_0124.wav'); </script>
+  <div id="heroes_s3_16_0124_s2t_npdf__waveform"></div>
+  <button id="heroes_s3_16_0124_s2t_npdf__button" class="play-button-demo btn btn-primary" onclick="heroes_s3_16_0124_s2t_npdf.playPause()"><i class="fa fa-play"></i> Play / <i class="fa fa-pause"></i> Pause </button>
+  <script> var heroes_s3_16_0124_s2t_npdf = WaveSurfer.create({ container: '#heroes_s3_16_0124_s2t_npdf__waveform', waveColor: 'violet', progressColor: 'purple' }); heroes_s3_16_0124_s2t_npdf.load('./audio/S2T_text/heroes/N_P_D_F/heroes_s3_16_0124.wav'); </script>
+  <div id="heroes_s3_11_0045_s2t_nnnn__waveform"></div>
+  <button id="heroes_s3_11_0045_s2t_nnnn__button" class="play-button-demo btn btn-primary" onclick="heroes_s3_11_0045_s2t_nnnn.playPause()"><i class="fa fa-play"></i> Play / <i class="fa fa-pause"></i> Pause </button>
+  <script> var heroes_s3_11_0045_s2t_nnnn = WaveSurfer.create({ container: '#heroes_s3_11_0045_s2t_nnnn__waveform', waveColor: 'violet', progressColor: 'purple' }); heroes_s3_11_0045_s2t_nnnn.load('./audio/S2T_text/heroes/N_N_N_N/heroes_s3_11_0045.wav'); </script>
+  <div id="heroes_s3_11_0045_s2t_gpdf__waveform"></div>
+  <button id="heroes_s3_11_0045_s2t_gpdf__button" class="play-button-demo btn btn-primary" onclick="heroes_s3_11_0045_s2t_gpdf.playPause()"><i class="fa fa-play"></i> Play / <i class="fa fa-pause"></i> Pause </button>
+  <script> var heroes_s3_11_0045_s2t_gpdf = WaveSurfer.create({ container: '#heroes_s3_11_0045_s2t_gpdf__waveform', waveColor: 'violet', progressColor: 'purple' }); heroes_s3_11_0045_s2t_gpdf.load('./audio/S2T_text/heroes/G_P_D_F/heroes_s3_11_0045.wav'); </script>
+  <div id="heroes_s3_11_0045_s2t_gnnn__waveform"></div>
+  <button id="heroes_s3_11_0045_s2t_gnnn__button" class="play-button-demo btn btn-primary" onclick="heroes_s3_11_0045_s2t_gnnn.playPause()"><i class="fa fa-play"></i> Play / <i class="fa fa-pause"></i> Pause </button>
+  <script> var heroes_s3_11_0045_s2t_gnnn = WaveSurfer.create({ container: '#heroes_s3_11_0045_s2t_gnnn__waveform', waveColor: 'violet', progressColor: 'purple' }); heroes_s3_11_0045_s2t_gnnn.load('./audio/S2T_text/heroes/G_N_N_N/heroes_s3_11_0045.wav'); </script>
+  <div id="heroes_s3_11_0045_s2t_npdf__waveform"></div>
+  <button id="heroes_s3_11_0045_s2t_npdf__button" class="play-button-demo btn btn-primary" onclick="heroes_s3_11_0045_s2t_npdf.playPause()"><i class="fa fa-play"></i> Play / <i class="fa fa-pause"></i> Pause </button>
+  <script> var heroes_s3_11_0045_s2t_npdf = WaveSurfer.create({ container: '#heroes_s3_11_0045_s2t_npdf__waveform', waveColor: 'violet', progressColor: 'purple' }); heroes_s3_11_0045_s2t_npdf.load('./audio/S2T_text/heroes/N_P_D_F/heroes_s3_11_0045.wav'); </script>
+</table>
+    <div class="content-container">
+        Template based on <a style="color:rgb(22, 38, 67)" href="https://speechbot.github.io/"> Textless NLP</a> and <a
+            style="color:rgb(22, 38, 67)" href="https://daps.cs.princeton.edu/projects/HiFi-GAN/index.php"> HiFi-GAN</a>
+        pages.
+    </div>
+</body>
+
+</html>
