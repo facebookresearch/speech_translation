@@ -1,9 +1,0 @@
-
-    <div class="content-container">
-        Template based on <a style="color:rgb(22, 38, 67)" href="https://speechbot.github.io/"> Textless NLP</a> and <a
-            style="color:rgb(22, 38, 67)" href="https://daps.cs.princeton.edu/projects/HiFi-GAN/index.php"> HiFi-GAN</a>
-        pages.
-    </div>
-</body>
-
-</html>
